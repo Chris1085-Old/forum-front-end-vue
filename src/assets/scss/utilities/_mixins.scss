@@ -1,0 +1,25 @@
+//電腦
+@mixin pc() {
+  @media all and (min-width: $pc-media) {
+    @content;
+  }
+}
+
+@mixin pad-lg {
+  @media all and (min-width: $pad-media) and (max-width: $pcs-media) {
+    @content;
+  }
+}
+
+//平板
+@mixin pad() {
+  @media all and (min-width: $phone-media) and (max-width: $pcs-media) {
+    @content;
+  }
+}
+//手機
+@mixin mobile() {
+  @media all and (max-width: $phones-media) {
+    @content;
+  }
+}
