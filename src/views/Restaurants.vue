@@ -1,0 +1,16 @@
+<template>
+  <div class="container py-5">
+    <Navtabs />
+    <h1 class="mt-5">
+      首頁 - 餐廳列表
+    </h1>
+  </div>
+</template>
+
+<script>
+import Navtabs from '../components/Navtabs.vue'
+
+export default {
+  components: { Navtabs }
+}
+</script>
