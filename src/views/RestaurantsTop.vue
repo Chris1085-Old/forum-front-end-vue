@@ -14,9 +14,9 @@
     >
       <div class="row no-gutters">
         <div class="col-md-4">
-          <a href="#">
+          <router-link :to="`/restaurants/${restaurant.id}`">
             <img class="card-img" :src="restaurant.image" />
-          </a>
+          </router-link>
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -29,13 +29,17 @@
             <p class="card-text">
               {{ restaurant.description }}
             </p>
-            <a href="#" class="btn btn-primary mr-2">Show</a>
+            <router-link
+              :to="`/restaurants/${restaurant.id}`"
+              class="btn btn-primary mr-2"
+              >Show</router-link
+            >
 
             <button
               v-if="restaurant.isFavorited"
               type="button"
               class="btn btn-danger btn-border favorite mr-2"
-              @click.stop.prevent="favoriteToggle"
+              @click.stop.prevent="favoriteToggle(restaurant)"
             >
               移除最愛
             </button>
@@ -43,7 +47,7 @@
               v-else
               type="button"
               class="btn btn-primary btn-border favorite mr-2"
-              @click.stop.prevent="favoriteToggle"
+              @click.stop.prevent="favoriteToggle(restaurant)"
             >
               加到最愛
             </button>
@@ -497,6 +501,7 @@ const dummyData = {
   ]
 }
 export default {
+  name: 'RestaurantsTop',
   components: { NavTabs },
   data() {
     return {
@@ -504,8 +509,8 @@ export default {
     }
   },
   methods: {
-    favoriteToggle() {
-      this.restaurant.isFavorited = !this.restaurant.isFavorited
+    favoriteToggle(restaurant) {
+      restaurant.isFavorited = !restaurant.isFavorited
     }
   }
 }

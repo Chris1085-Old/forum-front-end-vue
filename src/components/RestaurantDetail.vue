@@ -1,8 +1,8 @@
 <template>
   <div class="row">
     <div class="col-md-12 mb-3">
-      <h1>{{ restaurant.name }}</h1>
-      <p class="badge badge-secondary mt-1 mb-3">
+      <h1>{{ restaurant.id }} {{ restaurant.name }}</h1>
+      <p class="badge bg-secondary mt-1 mb-3">
         {{ restaurant.categoryName }}
       </p>
     </div>
@@ -31,7 +31,11 @@
     </div>
     <div class="col-lg-8">
       <p>{{ restaurant.description }}</p>
-      <a class="btn btn-primary btn-border mr-2" href="#">Dashboard</a>
+      <router-link
+        :to="`/restaurants/${restaurant.id}/dashboard`"
+        class="btn btn-primary btn-border mr-2"
+        >Dashboard</router-link
+      >
 
       <button
         v-if="restaurant.isFavorited"
