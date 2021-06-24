@@ -19,7 +19,7 @@
           required
           autofocus
           v-model="email"
-        >
+        />
       </div>
 
       <div class="form-label-group mb-3">
@@ -33,13 +33,10 @@
           autocomplete="current-password"
           required
           v-model="password"
-        >
+        />
       </div>
 
-      <button
-        class="btn btn-lg btn-primary btn-block mb-3 w-100"
-        type="submit"
-      >
+      <button class="btn btn-lg btn-primary btn-block mb-3 w-100" type="submit">
         Submit
       </button>
 
@@ -58,14 +55,14 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       email: '',
       password: ''
     }
   },
   methods: {
-    handleSubmit () {
+    handleSubmit() {
       const data = JSON.stringify({
         email: this.email,
         password: this.password
