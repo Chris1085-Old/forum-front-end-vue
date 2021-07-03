@@ -87,6 +87,8 @@
 </template>
 
 <script>
+import authorizationAPI from './../apis/authorization'
+import { Toast } from './../utils/helpers'
 export default {
   name: 'SignUp',
   data() {
@@ -95,19 +97,55 @@ export default {
       email: '',
       password: '',
       passwordCheck: '',
-      isValidate: true
+      isValidate: true,
+      isProcessing: false
     }
   },
   methods: {
-    handleSubmit() {
-      if (this.password === this.passwordCheck) {
-        const data = JSON.stringify({
+    async handleSubmit() {
+      try {
+        // 判斷註冊資料是否填寫
+        if (
+          !this.email ||
+          !this.name ||
+          !this.password ||
+          !this.passwordCheck
+        ) {
+          Toast.fire({
+            icon: 'error',
+            title: '請確實填入註冊資料'
+          })
+          return
+        }
+        // 判斷密碼輸入是否正確
+        if (this.password !== this.passwordCheck) {
+          Toast.fire({
+            icon: 'error',
+            title: '密碼與確認密碼不符，請重新輸入'
+          })
+          return
+        }
+        // 將註冊資料透過api送給伺服器
+        this.isProcessing = true
+        const { data } = await authorizationAPI.signUp({
+          name: this.name,
           email: this.email,
-          password: this.password
+          password: this.password,
+          passwordCheck: this.passwordCheck
         })
-        console.log('data', data)
-      } else {
-        this.isValidate = false
+        if (data.status !== 'success') {
+          this.isProcessing = false
+          throw new Error(data.message)
+        }
+        // 轉址到登入頁
+        this.$router.push({ name: 'sign-in' })
+      } catch (e) {
+        this.isProcessing = false
+        console.log(e)
+        Toast.fire({
+          icon: 'warning',
+          title: '無法註冊'
+        })
       }
     }
   }
