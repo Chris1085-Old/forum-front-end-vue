@@ -2,7 +2,11 @@
   <div class="card mb-3">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img :src="userProfile.profile.image" width="300px" height="300px" />
+        <img
+          :src="userProfile.profile.image | emptyImage"
+          width="300px"
+          height="300px"
+        />
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -70,6 +74,8 @@
 </template>
 
 <script>
+import { emptyImageFilter } from './../utils/mixins'
+
 const dummyUser = {
   currentUser: {
     id: 1,
@@ -88,6 +94,7 @@ export default {
       required: true
     }
   },
+  mixins: [emptyImageFilter],
   data() {
     return {
       currentUser: dummyUser.currentUser,
